@@ -31,6 +31,9 @@ dependencies {
     // spring cloud
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
+    // CaseFormat
+    implementation 'com.google.guava:guava:r05'
+
     // restAssured
     testImplementation 'io.rest-assured:rest-assured:3.3.0'
 
