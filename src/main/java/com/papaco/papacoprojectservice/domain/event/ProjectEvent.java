@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -22,16 +21,13 @@ public class ProjectEvent extends BaseEvent {
     @Enumerated(EnumType.STRING)
     private EventType eventType;
 
-    private LocalDateTime publishedAt;
-
-    public ProjectEvent(UUID aggregateId, EventType eventType, LocalDateTime publishedAt) {
+    public ProjectEvent(UUID aggregateId, EventType eventType) {
         super();
         this.aggregateId = aggregateId;
         this.eventType = eventType;
-        this.publishedAt = publishedAt;
     }
 
     public static ProjectEvent of(Project project, EventType eventType) {
-        return new ProjectEvent(project.getId(), eventType, LocalDateTime.now());
+        return new ProjectEvent(project.getId(), eventType);
     }
 }

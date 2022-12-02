@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 @Component
-public class ProjectSpringEventPublisher implements ProjectEventPublisher {
+public class ProjectSpringEventPublishExecutor implements ProjectEventPublisher {
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
