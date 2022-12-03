@@ -20,6 +20,6 @@ public class ProjectSNSPublishExecutor implements MessagePublisher {
         String duplicationId = payload.getEventId();
 
         PublishRequest request = snsPublisher.createRequest(arn, groupId, duplicationId, payload);
-        snsPublisher.execute(request);
+        snsPublisher.publish(request);
     }
 }

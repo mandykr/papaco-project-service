@@ -32,12 +32,12 @@ public class SNSPublishExecutor implements SNSPublisher {
     }
 
     @Override
-    public void execute(PublishRequest request) {
+    public void publish(PublishRequest request) {
         try {
             amazonSNS.publish(request);
-            log.info("publish: {}", request);
         } catch (Exception e) {
             log.error("sns publish error: {}", request, e);
         }
+        log.info("publish: {}", request);
     }
 }
