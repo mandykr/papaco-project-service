@@ -8,6 +8,7 @@ import com.papaco.papacoprojectservice.project.application.usecase.ProjectUseCas
 import com.papaco.papacoprojectservice.project.domain.entity.Project;
 import com.papaco.papacoprojectservice.project.domain.event.EventType;
 import com.papaco.papacoprojectservice.project.domain.event.ProjectEvent;
+import com.papaco.papacoprojectservice.project.domain.service.CodeStoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +21,13 @@ import java.util.UUID;
 public class ProjectService implements ProjectUseCase {
     private final ProjectRepository projectRepository;
     private final ProjectEventPublisher eventPublisher;
+    private final CodeStoreService codeStoreService;
 
     @Override
     public ProjectResponse createProject(ProjectCreateRequest request) {
         Project project = request.toProject(UUID.randomUUID());
+        codeStoreService.validate(project);
+
         Project saveProject = projectRepository.save(project);
         eventPublisher.publish(ProjectEvent.of(saveProject, EventType.CREATED));
         return ProjectResponse.of(saveProject);
