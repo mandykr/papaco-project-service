@@ -1,14 +1,14 @@
 package com.papaco.papacoprojectservice.integration;
 
-import com.papaco.papacoprojectservice.application.dto.ProjectCreateRequest;
-import com.papaco.papacoprojectservice.application.dto.ProjectResponse;
-import com.papaco.papacoprojectservice.application.port.input.ProjectService;
-import com.papaco.papacoprojectservice.application.port.output.ProjectEventRepository;
-import com.papaco.papacoprojectservice.application.port.output.ProjectRepository;
-import com.papaco.papacoprojectservice.domain.entity.Project;
-import com.papaco.papacoprojectservice.domain.event.EventType;
-import com.papaco.papacoprojectservice.domain.event.ProjectEvent;
-import com.papaco.papacoprojectservice.framework.adapter.input.ProjectEventRecordListener;
+import com.papaco.papacoprojectservice.project.application.dto.ProjectCreateRequest;
+import com.papaco.papacoprojectservice.project.application.dto.ProjectResponse;
+import com.papaco.papacoprojectservice.project.application.port.input.ProjectService;
+import com.papaco.papacoprojectservice.project.application.port.output.ProjectEventRepository;
+import com.papaco.papacoprojectservice.project.application.port.output.ProjectRepository;
+import com.papaco.papacoprojectservice.project.domain.entity.Project;
+import com.papaco.papacoprojectservice.project.domain.event.EventType;
+import com.papaco.papacoprojectservice.project.domain.event.ProjectEvent;
+import com.papaco.papacoprojectservice.project.framework.adapter.input.ProjectEventRecordListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -71,7 +71,7 @@ class ProjectEventRecorderTest extends IntegrationTest {
     @DisplayName("이벤트 저장에 실패하면 프로젝트가 저장되지 않는다")
     @Test
     void fail() {
-        ReflectionTestUtils.setField(eventListener, "projectEventUseCase", null);
+        ReflectionTestUtils.setField(eventListener, "projectEventRecordUseCase", null);
         AtomicReference<ProjectResponse> response = null;
 
         assertThatThrownBy(() -> response.set(projectService.createProject(request)))
