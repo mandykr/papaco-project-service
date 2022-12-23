@@ -31,6 +31,10 @@ dependencies {
     // spring cloud
 //    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
+    // feign
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
     // aws
     implementation 'io.awspring.cloud:spring-cloud-aws-context'
     implementation 'io.awspring.cloud:spring-cloud-starter-aws-messaging'
