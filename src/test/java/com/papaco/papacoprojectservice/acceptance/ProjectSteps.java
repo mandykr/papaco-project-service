@@ -31,4 +31,22 @@ public class ProjectSteps {
     public static void 프로젝트_생성됨(ExtractableResponse<Response> response) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
+
+    public static ExtractableResponse<Response> 프로젝트_수정_요청(ExtractableResponse<Response> response, Map<String, String> repo, String description) {
+        String uri = response.header("Location");
+        Map<String, String> params = new HashMap<>();
+        params.put("codeStoreId", repo.get("id"));
+        params.put("codeStoreName", repo.get("name"));
+        params.put("projectDescription", description);
+
+        return RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(params)
+                .when().put(uri)
+                .then().log().all().extract();
+    }
+
+    public static void 프로젝트_수정됨(ExtractableResponse<Response> response) {
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+    }
 }

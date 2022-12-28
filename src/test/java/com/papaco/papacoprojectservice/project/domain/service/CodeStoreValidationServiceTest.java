@@ -17,14 +17,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class CodeStoreServiceTest {
+class CodeStoreValidationServiceTest {
     @Autowired
     private ProjectRepository projectRepository;
-    private CodeStoreService codeStoreService;
+    private CodeStoreValidationService codeStoreValidationService;
 
     @BeforeEach
     void setUp() {
-        codeStoreService = new CodeStoreService(projectRepository);
+        codeStoreValidationService = new CodeStoreValidationService(projectRepository);
     }
 
     @DisplayName("기존에 등록되어 있는 코드 저장소로 프로젝트를 생성하면 예외가 발생한다")
@@ -36,7 +36,7 @@ class CodeStoreServiceTest {
 
         Project newProject = new Project(UUID.randomUUID(), 1L, codeStore, new ProjectDescription("msa 학습 프로젝트"));
 
-        assertThatThrownBy(() -> codeStoreService.validate(newProject))
+        assertThatThrownBy(() -> codeStoreValidationService.validateToApply(newProject))
                 .isInstanceOf(IllegalStateException.class);
     }
 }

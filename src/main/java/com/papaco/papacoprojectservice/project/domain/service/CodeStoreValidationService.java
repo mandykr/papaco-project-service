@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class CodeStoreService {
+public class CodeStoreValidationService {
     private final ProjectRepository projectRepository;
 
-    public void validate(Project project) {
+    public void validateToApply(Project project) {
         boolean exists = projectRepository.existsByOwnerIdAndCodeStoreId(project.getOwnerId(), project.getCodeStore().getId());
 
         if (exists) {

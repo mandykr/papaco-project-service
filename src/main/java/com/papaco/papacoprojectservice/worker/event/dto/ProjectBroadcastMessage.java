@@ -18,11 +18,6 @@ public class ProjectBroadcastMessage {
     private String eventId;
     private String aggregateId;
     private String eventType;
-    private boolean published;
-
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime publishedAt;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -33,8 +28,6 @@ public class ProjectBroadcastMessage {
                 payload.getEventId(),
                 payload.getAggregateId(),
                 payload.getEventType(),
-                payload.isPublished(),
-                payload.getPublishedAt(),
                 payload.getCreatedAt()
         );
     }

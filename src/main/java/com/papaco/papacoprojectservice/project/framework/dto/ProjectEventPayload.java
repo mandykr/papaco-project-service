@@ -18,11 +18,6 @@ public class ProjectEventPayload extends EventPayload {
     private static final String TYPE = "ProjectEventPayload";
     private String aggregateId;
     private String eventType;
-    private boolean published;
-
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime publishedAt;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -37,14 +32,10 @@ public class ProjectEventPayload extends EventPayload {
             @JsonProperty("eventId") String eventId,
             @JsonProperty("aggregateId") String aggregateId,
             @JsonProperty("eventType") String eventType,
-            @JsonProperty("published") boolean published,
-            @JsonProperty("publishedAt") LocalDateTime publishedAt,
             @JsonProperty("createdAt") LocalDateTime createdAt) {
         super(eventId, TYPE);
         this.aggregateId = aggregateId;
         this.eventType = eventType;
-        this.published = published;
-        this.publishedAt = publishedAt;
         this.createdAt = createdAt;
     }
 
@@ -53,8 +44,6 @@ public class ProjectEventPayload extends EventPayload {
                 String.valueOf(event.getId()),
                 String.valueOf(event.getAggregateId()),
                 String.valueOf(event.getEventType()),
-                event.isPublished(),
-                event.getPublishedAt(),
                 event.getCreatedAt()
         );
     }
