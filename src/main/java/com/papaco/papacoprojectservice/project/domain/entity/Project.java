@@ -3,22 +3,24 @@ package com.papaco.papacoprojectservice.project.domain.entity;
 import com.papaco.papacoprojectservice.project.domain.vo.CodeStore;
 import com.papaco.papacoprojectservice.project.domain.vo.ProjectDescription;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.UUID;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Project {
     @Column(name = "id", columnDefinition = "varbinary(16)")
     @Id
     private UUID id;
-
     private Long ownerId;
 
     @Embedded
@@ -26,6 +28,14 @@ public class Project {
 
     @Embedded
     private ProjectDescription description;
+    private boolean deleted = Boolean.FALSE;
+
+    public Project(UUID id, Long ownerId, CodeStore codeStore, ProjectDescription description) {
+        this.id = id;
+        this.ownerId = ownerId;
+        this.codeStore = codeStore;
+        this.description = description;
+    }
 
     public void changeCodeStore(CodeStore codeStore) {
         this.codeStore = codeStore;
@@ -37,5 +47,9 @@ public class Project {
 
     public String getDescription() {
         return description.getDescription();
+    }
+
+    public void delete() {
+        this.deleted = true;
     }
 }

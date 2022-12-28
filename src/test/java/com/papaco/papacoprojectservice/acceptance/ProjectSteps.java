@@ -49,4 +49,16 @@ public class ProjectSteps {
     public static void 프로젝트_수정됨(ExtractableResponse<Response> response) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
+
+    public static ExtractableResponse<Response> 프로젝트_삭제_요청(ExtractableResponse<Response> response) {
+        String uri = response.header("Location");
+
+        return RestAssured.given().log().all()
+                .when().delete(uri)
+                .then().log().all().extract();
+    }
+
+    public static void 프로젝트_삭제됨(ExtractableResponse<Response> response) {
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.NO_CONTENT.value());
+    }
 }

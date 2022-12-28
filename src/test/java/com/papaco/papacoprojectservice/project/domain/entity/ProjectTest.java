@@ -28,7 +28,7 @@ class ProjectTest {
                 .doesNotThrowAnyException();
     }
 
-    @DisplayName("프로젝트의 코드 저장소를 변경할 수 있다")
+    @DisplayName("프로젝트의 코드 저장소를 변경한다")
     @Test
     void changeCodeStore() {
         Project project = new Project(UUID.randomUUID(), 1L, codeStore, description);
@@ -39,7 +39,7 @@ class ProjectTest {
         assertThat(project.getCodeStore()).isEqualTo(newStore);
     }
 
-    @DisplayName("프로젝트의 설명을 수정할 수 있다")
+    @DisplayName("프로젝트의 설명을 수정한다")
     @Test
     void editDescription() {
         Project project = new Project(UUID.randomUUID(), 1L, codeStore, description);
@@ -48,5 +48,15 @@ class ProjectTest {
         project.editDescription(description);
 
         assertThat(project.getDescription()).isEqualTo("프로젝트 설명 링크: ");
+    }
+
+    @DisplayName("프로젝트를 삭제한다")
+    @Test
+    void delete() {
+        Project project = new Project(UUID.randomUUID(), 1L, codeStore, description);
+
+        project.delete();
+
+        assertThat(project.isDeleted()).isTrue();
     }
 }

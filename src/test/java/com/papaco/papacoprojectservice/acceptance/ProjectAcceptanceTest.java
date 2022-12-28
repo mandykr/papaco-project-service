@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
@@ -34,6 +35,7 @@ class ProjectAcceptanceTest extends AcceptanceTest {
 
     @TestConfiguration
     public static class Config {
+        @Qualifier("FakeProjectQueryServiceClient")
         @Bean
         public ProjectQueryServiceClient FakeProjectQueryServiceClient() {
             return new FakeProjectQueryServiceClient();
@@ -59,5 +61,8 @@ class ProjectAcceptanceTest extends AcceptanceTest {
 
         ExtractableResponse<Response> updateResponse = 프로젝트_수정_요청(createResponse, 리포지토리, "msa, eda 학습 프로젝트");
         프로젝트_수정됨(updateResponse);
+
+        ExtractableResponse<Response> deleteResponse = 프로젝트_삭제_요청(createResponse);
+        프로젝트_삭제됨(deleteResponse);
     }
 }

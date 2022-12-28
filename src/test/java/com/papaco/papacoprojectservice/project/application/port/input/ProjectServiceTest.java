@@ -103,7 +103,6 @@ class ProjectServiceTest {
 
         assertThatThrownBy(() -> projectService.updateProject(project.getId(), request))
                 .isInstanceOf(IllegalStateException.class);
-        // FailedChangeCodeStoreException
     }
 
     @DisplayName("리뷰 이력이 있는 상태에서 코드 저장소를 변경하면 예외가 발생한다")
@@ -117,6 +116,15 @@ class ProjectServiceTest {
 
         assertThatThrownBy(() -> projectService.updateProject(project.getId(), request))
                 .isInstanceOf(IllegalStateException.class);
-        // FailedChangeCodeStoreException
+    }
+
+    @DisplayName("프로젝트를 삭제한다")
+    @Test
+    void delete() {
+        projectRepository.save(project);
+
+        project.delete();
+
+        assertThat(project.isDeleted()).isTrue();
     }
 }

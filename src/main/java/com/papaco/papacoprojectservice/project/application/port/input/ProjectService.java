@@ -60,4 +60,12 @@ public class ProjectService implements ProjectUseCase {
         projectValidationService.validateToUpdate(queryResponse.getReviewCount(), queryResponse.getReviewerMatchStatus());
         project.changeCodeStore(codeStore);
     }
+
+    @Override
+    public void deleteProject(UUID id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(String.valueOf(id)));
+        project.delete();
+        eventPublisher.publish(ProjectEvent.of(project, EventType.DELETED));
+    }
 }

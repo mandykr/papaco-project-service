@@ -16,7 +16,7 @@ public class CodeStoreValidationService {
         boolean exists = projectRepository.existsByOwnerIdAndCodeStoreId(project.getOwnerId(), project.getCodeStore().getId());
 
         if (exists) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(); // FailedChangeCodeStoreException
         }
     }
 }

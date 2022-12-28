@@ -10,4 +10,6 @@ public interface ProjectUseCase {
     ProjectResponse createProject(ProjectCreateRequest request);
 
     void updateProject(UUID id, ProjectUpdateRequest request);
+
+    void deleteProject(UUID id);
 }

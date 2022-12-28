@@ -29,4 +29,10 @@ public class ProjectRestController {
         projectUseCase.updateProject(id, request);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable UUID id) {
+        projectUseCase.deleteProject(id);
+        return ResponseEntity.noContent().build();
+    }
 }
