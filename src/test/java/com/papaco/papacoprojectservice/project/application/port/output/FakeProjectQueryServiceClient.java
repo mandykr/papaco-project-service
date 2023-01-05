@@ -4,7 +4,7 @@ import com.papaco.papacoprojectservice.project.application.dto.ProjectQueryRespo
 
 import java.util.UUID;
 
-import static com.papaco.papacoprojectservice.project.domain.vo.ReviewerMatchStatus.WAIT;
+import static com.papaco.papacoprojectservice.project.domain.vo.MateStatus.WAIT;
 
 public class FakeProjectQueryServiceClient implements ProjectQueryServiceClient {
     private ProjectQueryResponse response;
@@ -22,7 +22,7 @@ public class FakeProjectQueryServiceClient implements ProjectQueryServiceClient 
                 response.getCodeStoreId(),
                 response.getCodeStoreName(),
                 response.getProjectDescription(),
-                response.getReviewerMatchStatus(),
+                response.getMateStatus(),
                 response.getReviewCount()
         );
     }

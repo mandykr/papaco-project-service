@@ -1,6 +1,6 @@
 package com.papaco.papacoprojectservice.project.application.dto;
 
-import com.papaco.papacoprojectservice.project.domain.vo.ReviewerMatchStatus;
+import com.papaco.papacoprojectservice.project.domain.vo.MateStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +16,6 @@ public class ProjectQueryResponse {
     private String codeStoreId;
     private String codeStoreName;
     private String projectDescription;
-    private ReviewerMatchStatus reviewerMatchStatus;
+    private MateStatus mateStatus;
     private Long reviewCount;
 }

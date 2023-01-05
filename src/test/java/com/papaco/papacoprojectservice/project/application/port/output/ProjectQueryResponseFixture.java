@@ -1,7 +1,7 @@
 package com.papaco.papacoprojectservice.project.application.port.output;
 
 import com.papaco.papacoprojectservice.project.application.dto.ProjectQueryResponse;
-import com.papaco.papacoprojectservice.project.domain.vo.ReviewerMatchStatus;
+import com.papaco.papacoprojectservice.project.domain.vo.MateStatus;
 
 import java.util.UUID;
 
@@ -11,7 +11,7 @@ public class ProjectQueryResponseFixture {
     private String CODE_STORE_NAME = "papaco-member-service";
     private String DESCRIPTION = "msa 학습 프로젝트";
 
-    public ProjectQueryResponse createResponse(UUID id, ReviewerMatchStatus status, Long reviewCount) {
+    public ProjectQueryResponse createResponse(UUID id, MateStatus status, Long reviewCount) {
         return new ProjectQueryResponse(
                 id,
                 OWNER_ID,
@@ -23,7 +23,7 @@ public class ProjectQueryResponseFixture {
         );
     }
 
-    public ProjectQueryResponse createResponse(ReviewerMatchStatus status, Long reviewCount) {
+    public ProjectQueryResponse createResponse(MateStatus status, Long reviewCount) {
         return new ProjectQueryResponse(
                 UUID.randomUUID(),
                 OWNER_ID,

@@ -1,5 +1,5 @@
 package com.papaco.papacoprojectservice.project.domain.vo;
 
-public enum ReviewerMatchStatus {
+public enum MateStatus {
     WAIT, PROPOSAL, ACCEPT, FINISH
 }

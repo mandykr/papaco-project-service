@@ -25,8 +25,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 import javax.persistence.EntityManager;
 import java.util.UUID;
 
-import static com.papaco.papacoprojectservice.project.domain.vo.ReviewerMatchStatus.ACCEPT;
-import static com.papaco.papacoprojectservice.project.domain.vo.ReviewerMatchStatus.PROPOSAL;
+import static com.papaco.papacoprojectservice.project.domain.vo.MateStatus.ACCEPT;
+import static com.papaco.papacoprojectservice.project.domain.vo.MateStatus.PROPOSAL;
 import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
