@@ -22,14 +22,18 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import javax.persistence.EntityManager;
 import java.util.UUID;
 
-import static com.papaco.papacoprojectservice.project.domain.vo.ReviewerMatchStatus.*;
+import static com.papaco.papacoprojectservice.project.domain.vo.ReviewerMatchStatus.MATCH;
+import static com.papaco.papacoprojectservice.project.domain.vo.ReviewerMatchStatus.PROPOSAL;
 import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ProjectServiceTest {
+    @Autowired
+    private EntityManager entityManager;
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -79,7 +83,7 @@ class ProjectServiceTest {
         assertThat(updateProject.getDescription()).isEqualTo("msa, eda 학습 프로젝트");
     }
 
-    @DisplayName("프로젝트의 코드 저장소를 변경할 수 있다")
+    @DisplayName("프로젝트의 코드 저장소를 변경한다")
     @Test
     void updateCodeStore() {
         projectRepository.save(project);
@@ -123,8 +127,22 @@ class ProjectServiceTest {
     void delete() {
         projectRepository.save(project);
 
-        project.delete();
+        projectService.deleteProject(project.getId());
 
+        Project deleted = projectRepository.findById(project.getId()).get();
+        assertThat(deleted.isDeleted()).isTrue();
+    }
+
+    @DisplayName("삭제된 프로젝트는 수정할 수 없다")
+    @Test
+    void deleted() {
+        projectRepository.save(project);
+        project.delete();
+        ProjectUpdateRequest request = new ProjectUpdateRequest(codeStore.getId(), codeStore.getName(), "msa, eda 학습 프로젝트");
+
+        entityManager.clear();
         assertThat(project.isDeleted()).isTrue();
+        assertThatThrownBy(() -> projectService.updateProject(project.getId(), request))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

@@ -5,7 +5,6 @@ import com.papaco.papacoprojectservice.project.domain.vo.ProjectDescription;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
@@ -16,6 +15,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Where(clause = "deleted = false")
 @Entity
 public class Project {
     @Column(name = "id", columnDefinition = "varbinary(16)")
