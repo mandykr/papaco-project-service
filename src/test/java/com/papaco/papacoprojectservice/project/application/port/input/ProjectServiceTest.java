@@ -25,7 +25,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import javax.persistence.EntityManager;
 import java.util.UUID;
 
-import static com.papaco.papacoprojectservice.project.domain.vo.ReviewerMatchStatus.MATCH;
+import static com.papaco.papacoprojectservice.project.domain.vo.ReviewerMatchStatus.ACCEPT;
 import static com.papaco.papacoprojectservice.project.domain.vo.ReviewerMatchStatus.PROPOSAL;
 import static org.assertj.core.api.Assertions.*;
 
@@ -102,7 +102,7 @@ class ProjectServiceTest {
         projectRepository.save(project);
         CodeStore newCodeStore = new CodeStore("54465485", "papaco-project-service");
         ProjectUpdateRequest request = new ProjectUpdateRequest(newCodeStore.getId(), newCodeStore.getName(), project.getDescription());
-        ProjectQueryResponse response = queryResponseFixture.createResponse(project.getId(), MATCH, 0L);
+        ProjectQueryResponse response = queryResponseFixture.createResponse(project.getId(), ACCEPT, 0L);
         ReflectionTestUtils.setField(queryServiceClient, "response", response);
 
         assertThatThrownBy(() -> projectService.updateProject(project.getId(), request))
