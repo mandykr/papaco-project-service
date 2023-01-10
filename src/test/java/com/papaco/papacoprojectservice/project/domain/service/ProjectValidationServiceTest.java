@@ -45,7 +45,7 @@ class ProjectValidationServiceTest {
     @DisplayName("리뷰어 매칭 상태면 예외가 발생한다")
     @Test
     void match() {
-        assertThatThrownBy(() -> projectValidationService.validateToUpdate(0L, ACCEPT))
+        assertThatThrownBy(() -> projectValidationService.validateToUpdate(0L, JOIN))
                 .isInstanceOf(IllegalStateException.class);
     }
 }
