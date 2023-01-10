@@ -23,14 +23,14 @@ class ProjectValidationServiceTest {
     @DisplayName("리뷰 이력이 없으면 예외가 발생하지 않는다")
     @Test
     void noReviewCount() {
-        assertThatCode(() -> projectValidationService.validateToUpdate(0L, WAIT))
+        assertThatCode(() -> projectValidationService.validateToUpdate(0L, WAITING))
                 .doesNotThrowAnyException();
     }
 
     @DisplayName("리뷰 이력이 있으면 예외가 발생한다")
     @Test
     void reviewCount() {
-        assertThatThrownBy(() -> projectValidationService.validateToUpdate(3L, WAIT))
+        assertThatThrownBy(() -> projectValidationService.validateToUpdate(3L, WAITING))
                 .isInstanceOf(IllegalStateException.class);
     }
 
@@ -45,7 +45,7 @@ class ProjectValidationServiceTest {
     @DisplayName("리뷰어 매칭 상태면 예외가 발생한다")
     @Test
     void match() {
-        assertThatThrownBy(() -> projectValidationService.validateToUpdate(0L, JOIN))
+        assertThatThrownBy(() -> projectValidationService.validateToUpdate(0L, JOINED))
                 .isInstanceOf(IllegalStateException.class);
     }
 }

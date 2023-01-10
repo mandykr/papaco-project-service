@@ -4,14 +4,14 @@ import com.papaco.papacoprojectservice.project.application.dto.ProjectQueryRespo
 
 import java.util.UUID;
 
-import static com.papaco.papacoprojectservice.project.domain.vo.MateStatus.WAIT;
+import static com.papaco.papacoprojectservice.project.domain.vo.MateStatus.WAITING;
 
 public class FakeProjectQueryServiceClient implements ProjectQueryServiceClient {
     private ProjectQueryResponse response;
 
     public FakeProjectQueryServiceClient() {
         ProjectQueryResponseFixture fixture = new ProjectQueryResponseFixture();
-        response = fixture.createResponse(WAIT, 0L);
+        response = fixture.createResponse(WAITING, 0L);
     }
 
     @Override
