@@ -62,6 +62,14 @@ public class ProjectService implements ProjectUseCase {
     }
 
     @Override
+    public void finishProject(UUID id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(String.valueOf(id)));
+        project.finish();
+        eventPublisher.publish(ProjectEvent.of(project, EventType.UPDATED));
+    }
+
+    @Override
     public void deleteProject(UUID id) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(String.valueOf(id)));

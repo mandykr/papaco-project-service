@@ -50,6 +50,16 @@ class ProjectTest {
         assertThat(project.getDescription()).isEqualTo("프로젝트 설명 링크: ");
     }
 
+    @DisplayName("프로젝트를 종료한다")
+    @Test
+    void finish() {
+        Project project = new Project(UUID.randomUUID(), 1L, codeStore, description);
+
+        project.finish();
+
+        assertThat(project.isFinished()).isTrue();
+    }
+
     @DisplayName("프로젝트를 삭제한다")
     @Test
     void delete() {

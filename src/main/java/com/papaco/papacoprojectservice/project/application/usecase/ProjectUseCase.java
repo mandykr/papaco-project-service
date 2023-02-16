@@ -11,5 +11,7 @@ public interface ProjectUseCase {
 
     void updateProject(UUID id, ProjectUpdateRequest request);
 
+    void finishProject(UUID id);
+
     void deleteProject(UUID id);
 }

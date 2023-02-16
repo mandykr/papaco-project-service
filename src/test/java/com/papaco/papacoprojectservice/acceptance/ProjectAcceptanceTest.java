@@ -62,6 +62,9 @@ class ProjectAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> updateResponse = 프로젝트_수정_요청(createResponse, 리포지토리, "msa, eda 학습 프로젝트");
         프로젝트_수정됨(updateResponse);
 
+        ExtractableResponse<Response> finishResponse = 프로젝트_종료_요청(createResponse);
+        프로젝트_종료됨(finishResponse);
+
         ExtractableResponse<Response> deleteResponse = 프로젝트_삭제_요청(createResponse);
         프로젝트_삭제됨(deleteResponse);
     }

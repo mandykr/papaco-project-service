@@ -50,6 +50,21 @@ public class ProjectSteps {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
 
+    public static ExtractableResponse<Response> 프로젝트_종료_요청(ExtractableResponse<Response> response) {
+        String uri = response.header("Location");
+        Map<String, String> params = new HashMap<>();
+
+        return RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(params)
+                .when().put(uri + "/finish")
+                .then().log().all().extract();
+    }
+
+    public static void 프로젝트_종료됨(ExtractableResponse<Response> response) {
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+    }
+
     public static ExtractableResponse<Response> 프로젝트_삭제_요청(ExtractableResponse<Response> response) {
         String uri = response.header("Location");
 

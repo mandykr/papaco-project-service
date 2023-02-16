@@ -122,6 +122,17 @@ class ProjectServiceTest {
                 .isInstanceOf(IllegalStateException.class);
     }
 
+    @DisplayName("프로젝트를 종료한다")
+    @Test
+    void finish() {
+        projectRepository.save(project);
+
+        projectService.finishProject(project.getId());
+
+        Project finished = projectRepository.findById(project.getId()).get();
+        assertThat(finished.isDeleted()).isTrue();
+    }
+
     @DisplayName("프로젝트를 삭제한다")
     @Test
     void delete() {

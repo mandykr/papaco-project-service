@@ -28,6 +28,7 @@ public class Project {
 
     @Embedded
     private ProjectDescription description;
+    private boolean finished = Boolean.FALSE;
     private boolean deleted = Boolean.FALSE;
 
     public Project(UUID id, Long ownerId, CodeStore codeStore, ProjectDescription description) {
@@ -47,6 +48,10 @@ public class Project {
 
     public String getDescription() {
         return description.getDescription();
+    }
+
+    public void finish() {
+        this.finished = true;
     }
 
     public void delete() {

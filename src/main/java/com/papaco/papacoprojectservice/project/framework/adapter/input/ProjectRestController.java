@@ -30,6 +30,12 @@ public class ProjectRestController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/{id}/finish")
+    public ResponseEntity<Void> finishProject(@PathVariable UUID id) {
+        projectUseCase.finishProject(id);
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable UUID id) {
         projectUseCase.deleteProject(id);
