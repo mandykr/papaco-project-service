@@ -7,6 +7,7 @@ import com.papaco.papacoprojectservice.project.application.dto.ProjectUpdateRequ
 import com.papaco.papacoprojectservice.project.application.port.output.ProjectEventPublisher;
 import com.papaco.papacoprojectservice.project.application.port.output.ProjectRepository;
 import com.papaco.papacoprojectservice.project.application.port.output.ProjectQueryServiceClient;
+import com.papaco.papacoprojectservice.project.application.port.output.TechStackRepository;
 import com.papaco.papacoprojectservice.project.application.usecase.ProjectUseCase;
 import com.papaco.papacoprojectservice.project.domain.entity.Project;
 import com.papaco.papacoprojectservice.project.domain.event.EventType;
@@ -26,6 +27,7 @@ import java.util.UUID;
 @Service
 public class ProjectService implements ProjectUseCase {
     private final ProjectRepository projectRepository;
+    private final TechStackRepository techStackRepository;
     private final ProjectEventPublisher eventPublisher;
     private final CodeStoreValidationService codeStoreValidationService;
     private final ProjectValidationService projectValidationService;
@@ -35,6 +37,7 @@ public class ProjectService implements ProjectUseCase {
     public ProjectResponse createProject(ProjectCreateRequest request) {
         Project project = request.toProject(UUID.randomUUID());
         codeStoreValidationService.validateToApply(project);
+        project.registerTechStacks(techStackRepository.findAllById(request.getTechStackIds()));
 
         Project saveProject = projectRepository.save(project);
         eventPublisher.publish(ProjectEvent.of(saveProject, EventType.CREATED));

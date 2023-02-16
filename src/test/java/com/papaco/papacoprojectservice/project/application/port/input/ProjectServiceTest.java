@@ -3,10 +3,7 @@ package com.papaco.papacoprojectservice.project.application.port.input;
 import com.papaco.papacoprojectservice.project.application.dto.ProjectCreateRequest;
 import com.papaco.papacoprojectservice.project.application.dto.ProjectQueryResponse;
 import com.papaco.papacoprojectservice.project.application.dto.ProjectUpdateRequest;
-import com.papaco.papacoprojectservice.project.application.port.output.FakeProjectQueryServiceClient;
-import com.papaco.papacoprojectservice.project.application.port.output.ProjectQueryResponseFixture;
-import com.papaco.papacoprojectservice.project.application.port.output.ProjectQueryServiceClient;
-import com.papaco.papacoprojectservice.project.application.port.output.ProjectRepository;
+import com.papaco.papacoprojectservice.project.application.port.output.*;
 import com.papaco.papacoprojectservice.project.domain.entity.Project;
 import com.papaco.papacoprojectservice.project.domain.service.CodeStoreValidationService;
 import com.papaco.papacoprojectservice.project.domain.service.ProjectValidationService;
@@ -23,6 +20,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.UUID;
 
 import static com.papaco.papacoprojectservice.project.domain.vo.MateStatus.JOINED;
@@ -37,6 +35,9 @@ class ProjectServiceTest {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private TechStackRepository techStackRepository;
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;
@@ -57,7 +58,7 @@ class ProjectServiceTest {
         queryResponseFixture = new ProjectQueryResponseFixture();
 
         projectService = new ProjectService(
-                projectRepository, projectEventPublisher, codeStoreValidationService, projectValidationService, queryServiceClient);
+                projectRepository, techStackRepository, projectEventPublisher, codeStoreValidationService, projectValidationService, queryServiceClient);
 
         codeStore = new CodeStore("54465484", "papaco-member-service");
         project = new Project(UUID.randomUUID(), 1L, codeStore, new ProjectDescription("msa 학습 프로젝트"));
@@ -66,7 +67,7 @@ class ProjectServiceTest {
     @DisplayName("프로젝트를 생성할 수 있다")
     @Test
     void create() {
-        ProjectCreateRequest createRequest = new ProjectCreateRequest(1L, codeStore.getId(), codeStore.getName(), "msa, eda 학습 프로젝트");
+        ProjectCreateRequest createRequest = new ProjectCreateRequest(1L, codeStore.getId(), codeStore.getName(), "msa, eda 학습 프로젝트", List.of(1L, 2L));
         assertThatCode(() -> projectService.createProject(createRequest))
                 .doesNotThrowAnyException();
     }
@@ -130,7 +131,7 @@ class ProjectServiceTest {
         projectService.finishProject(project.getId());
 
         Project finished = projectRepository.findById(project.getId()).get();
-        assertThat(finished.isDeleted()).isTrue();
+        assertThat(finished.isFinished()).isTrue();
     }
 
     @DisplayName("프로젝트를 삭제한다")

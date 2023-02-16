@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,12 +15,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProjectSteps {
     private static final String PROJECT_ENDPOINT = "/projects";
 
-    public static ExtractableResponse<Response> 프로젝트_생성_요청(Long memberId, Map<String, String> repo, String description) {
-        Map<String, String> params = new HashMap<>();
+    public static ExtractableResponse<Response> 프로젝트_생성_요청(Long memberId, Map<String, String> repo, String description, List<Long> 기술스택) {
+        Map<String, Object> params = new HashMap<>();
         params.put("ownerId", memberId + "");
         params.put("codeStoreId", repo.get("id"));
         params.put("codeStoreName", repo.get("name"));
         params.put("projectDescription", description);
+        params.put("techStackIds", 기술스택);
 
         return RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

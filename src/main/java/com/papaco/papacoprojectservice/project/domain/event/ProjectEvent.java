@@ -21,13 +21,20 @@ public class ProjectEvent extends BaseEvent {
     @Enumerated(EnumType.STRING)
     private EventType eventType;
 
-    public ProjectEvent(UUID aggregateId, EventType eventType) {
-        super();
+    private String payload;
+
+    public ProjectEvent(UUID aggregateId, EventType eventType, String payload) {
         this.aggregateId = aggregateId;
         this.eventType = eventType;
+        this.payload = payload;
     }
 
     public static ProjectEvent of(Project project, EventType eventType) {
-        return new ProjectEvent(project.getId(), eventType);
+        return new ProjectEvent(project.getId(), eventType, convertPayload(project));
+    }
+
+    private static String convertPayload(Project project) {
+        ProjectPayloadConverter converter = new ProjectPayloadConverter(project);
+        return converter.convert();
     }
 }

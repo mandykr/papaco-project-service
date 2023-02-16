@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.papaco.papacoprojectservice.acceptance.ProjectSteps.*;
@@ -19,6 +20,7 @@ import static com.papaco.papacoprojectservice.acceptance.ProjectSteps.*;
 class ProjectAcceptanceTest extends AcceptanceTest {
     private Long 사용자;
     private Map<String, String> 리포지토리;
+    private List<Long> 기술스택;
 
     /**
      *   Background
@@ -31,6 +33,7 @@ class ProjectAcceptanceTest extends AcceptanceTest {
         리포지토리 = new HashMap<>();
         리포지토리.put("id", "54465484");
         리포지토리.put("name", "papaco-member-service");
+        기술스택 = List.of(1L, 2L, 3L);
     }
 
     @TestConfiguration
@@ -56,7 +59,7 @@ class ProjectAcceptanceTest extends AcceptanceTest {
     @DisplayName("프로젝트를 관리한다")
     @Test
     void manage() {
-        ExtractableResponse<Response> createResponse = 프로젝트_생성_요청(사용자, 리포지토리, "msa 학습 프로젝트");
+        ExtractableResponse<Response> createResponse = 프로젝트_생성_요청(사용자, 리포지토리, "msa 학습 프로젝트", 기술스택);
         프로젝트_생성됨(createResponse);
 
         ExtractableResponse<Response> updateResponse = 프로젝트_수정_요청(createResponse, 리포지토리, "msa, eda 학습 프로젝트");

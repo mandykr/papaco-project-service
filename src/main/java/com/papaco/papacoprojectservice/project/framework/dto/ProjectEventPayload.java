@@ -18,6 +18,7 @@ public class ProjectEventPayload extends EventPayload {
     private static final String TYPE = "ProjectEventPayload";
     private String aggregateId;
     private String eventType;
+    private String payload;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -32,10 +33,12 @@ public class ProjectEventPayload extends EventPayload {
             @JsonProperty("eventId") String eventId,
             @JsonProperty("aggregateId") String aggregateId,
             @JsonProperty("eventType") String eventType,
+            @JsonProperty("payload") String payload,
             @JsonProperty("createdAt") LocalDateTime createdAt) {
         super(eventId, TYPE);
         this.aggregateId = aggregateId;
         this.eventType = eventType;
+        this.payload = payload;
         this.createdAt = createdAt;
     }
 
@@ -44,6 +47,7 @@ public class ProjectEventPayload extends EventPayload {
                 String.valueOf(event.getId()),
                 String.valueOf(event.getAggregateId()),
                 String.valueOf(event.getEventType()),
+                event.getPayload(),
                 event.getCreatedAt()
         );
     }

@@ -7,11 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,6 +28,10 @@ public class Project {
 
     @Embedded
     private ProjectDescription description;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProjectTechStack> projectTechStacks = new ArrayList<>();
+
     private boolean finished = Boolean.FALSE;
     private boolean deleted = Boolean.FALSE;
 
@@ -36,6 +40,13 @@ public class Project {
         this.ownerId = ownerId;
         this.codeStore = codeStore;
         this.description = description;
+    }
+
+    public void registerTechStacks(List<TechStack> techStacks) {
+        List<ProjectTechStack> projectTechStacks = new ArrayList<>();
+        techStacks.forEach(s -> projectTechStacks.add(new ProjectTechStack(this, s)));
+        this.projectTechStacks.clear();
+        this.projectTechStacks.addAll(projectTechStacks);
     }
 
     public void changeCodeStore(CodeStore codeStore) {
@@ -56,5 +67,11 @@ public class Project {
 
     public void delete() {
         this.deleted = true;
+    }
+
+    public List<TechStack> getTechStacks() {
+        return this.projectTechStacks.stream()
+                .map(ProjectTechStack::getTechStack)
+                .collect(Collectors.toList());
     }
 }

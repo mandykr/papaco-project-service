@@ -17,6 +17,7 @@ public class ProjectBroadcastMessage {
     private String eventId;
     private String aggregateId;
     private String eventType;
+    private String payload;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -27,6 +28,7 @@ public class ProjectBroadcastMessage {
                 payload.getEventId(),
                 payload.getAggregateId(),
                 payload.getEventType(),
+                payload.getPayload(),
                 payload.getCreatedAt()
         );
     }

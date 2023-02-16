@@ -17,6 +17,7 @@ import org.springframework.test.context.event.ApplicationEvents;
 import org.springframework.test.context.event.RecordApplicationEvents;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
@@ -46,7 +47,7 @@ class ProjectEventRecorderTest extends IntegrationTest {
 
     @BeforeEach
     void setUp() {
-        request = new ProjectCreateRequest(1L, "54485264", "papaco-project-service", "msa 학습 프로젝트");
+        request = new ProjectCreateRequest(1L, "54485264", "papaco-project-service", "msa 학습 프로젝트", List.of(1L, 2L));
         projectRepository.deleteAllInBatch();
         eventRepository.deleteAllInBatch();
     }
