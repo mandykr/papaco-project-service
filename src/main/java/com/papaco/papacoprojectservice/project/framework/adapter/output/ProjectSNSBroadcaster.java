@@ -1,10 +1,9 @@
-package com.papaco.papacoprojectservice.worker.event.publisher;
+package com.papaco.papacoprojectservice.project.framework.adapter.output;
 
 import com.amazonaws.services.sns.model.PublishRequest;
 import com.papaco.papacoprojectservice.project.framework.adapter.config.AWSConfigConstants;
-import com.papaco.papacoprojectservice.project.framework.adapter.output.SNSPublisher;
-import com.papaco.papacoprojectservice.worker.event.dto.ProjectBroadcastMessage;
-import com.papaco.papacoprojectservice.worker.event.listener.MessageBroadcaster;
+import com.papaco.papacoprojectservice.project.framework.adapter.input.MessageBroadcaster;
+import com.papaco.papacoprojectservice.project.framework.dto.ProjectBroadcastMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

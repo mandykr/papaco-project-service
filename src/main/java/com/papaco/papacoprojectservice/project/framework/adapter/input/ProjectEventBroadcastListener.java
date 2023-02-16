@@ -1,6 +1,6 @@
-package com.papaco.papacoprojectservice.worker.event.listener;
+package com.papaco.papacoprojectservice.project.framework.adapter.input;
 
-import com.papaco.papacoprojectservice.worker.event.dto.ProjectBroadcastMessage;
+import com.papaco.papacoprojectservice.project.framework.dto.ProjectBroadcastMessage;
 import com.papaco.papacoprojectservice.project.framework.dto.ProjectEventPayload;
 import io.awspring.cloud.messaging.config.annotation.NotificationMessage;
 import io.awspring.cloud.messaging.listener.SqsMessageDeletionPolicy;

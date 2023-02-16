@@ -1,4 +1,4 @@
-package com.papaco.papacoprojectservice.worker.event.listener;
+package com.papaco.papacoprojectservice.project.framework.adapter.input;
 
 import com.papaco.papacoprojectservice.project.application.usecase.ProjectEventRecordUseCase;
 import com.papaco.papacoprojectservice.project.framework.dto.EventPayload;
