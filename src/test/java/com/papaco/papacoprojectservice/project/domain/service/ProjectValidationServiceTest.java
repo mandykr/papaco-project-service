@@ -36,7 +36,7 @@ class ProjectValidationServiceTest {
 
     @DisplayName("리뷰어 매칭 상태가 아니면 예외가 발생하지 않는다")
     @ParameterizedTest
-    @EnumSource(mode = INCLUDE, names = {"NONE", "PROPOSAL", "FINISH"})
+    @EnumSource(mode = INCLUDE, names = {"WAITING", "PROPOSED", "FINISHED"})
     void notMatch(MateStatus status) {
         assertThatCode(() -> projectValidationService.validateToUpdate(0L, status))
                 .doesNotThrowAnyException();
