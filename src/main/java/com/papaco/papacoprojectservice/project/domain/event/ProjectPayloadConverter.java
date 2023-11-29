@@ -21,7 +21,7 @@ public class ProjectPayloadConverter {
                 project.getCodeStore().getId(),
                 project.getCodeStore().getName(),
                 project.getDescription(),
-                project.getTechStacks(),
+                project.getProjectTechStacks(),
                 project.isFinished(),
                 project.isDeleted()
         );

@@ -22,7 +22,7 @@ public class ProjectTechStack {
     )
     private Project project;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(
             name = "techStack_id",
             foreignKey = @ForeignKey(name = "fk_project_tech_stack_to_tech_stack")
